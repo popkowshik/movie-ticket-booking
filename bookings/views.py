@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
-from theaters.models import Theater, Showtime, Seat
+from book.models import Theater, Showtime, Seat
 from movies.models import Movie
 from accounts.models import User
 from django.contrib import messages
