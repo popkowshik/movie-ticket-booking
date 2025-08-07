@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from movies.models import Movie
+from student.models import Movie
 from bookings.models import Booking, BookingSeat
 from payments.models import Payment
 from django.contrib.auth.decorators import login_required
