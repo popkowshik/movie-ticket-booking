@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<style>
+    /* Background */
+.identify-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('../img/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Card Box */
+.identify-box {
+    background-color: rgba(0, 0, 0, 0.88);
+    padding: 30px 40px;
+    border-radius: 12px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+/* Heading */
+.identify-box h2 {
+    text-align: center;
+    color: #ffcc00;
+    margin-bottom: 20px;
+}
+
+/* Form */
+form p {
+    margin-bottom: 14px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #fceabb;
+}
+
+form input[type="text"],
+form input[type="email"] {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Submit Button */
+form input[type="submit"] {
+    background: linear-gradient(to right, #ffcc00, #ff9900);
+    color: #2b0000;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    margin-top: 10px;
+}
+
+form input[type="submit"]:hover {
+    background: linear-gradient(to right, #ff9900, #cc6600);
+    color: white;
+}
+
+/* Back to Login link styled like a button */
+.identify-box a {
+    display: inline-block;
+    text-align: center;
+    margin-top: 12px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #ffcc00;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid #ffcc00;
+    transition: all 0.3s ease;
+}
+
+.identify-box a:hover {
+    background-color: #ffcc00;
+    color: #2b0000;
+}
+
+
+</style>
+
+
+<!-- <----------------------> 
+
+<div class="identify-wrapper">
+    <div class="identify-box">
+        <h2>Identify Account</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Identify">
+            <a href="{% url 'login' %}">Back to login</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

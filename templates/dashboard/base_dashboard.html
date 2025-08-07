@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BookShow</title>
+    <link rel="stylesheet" href="{% static 'css/base_dashboard.css' %}">
+</head>
+<body>
+
+    <!-- HEADER SECTION -->
+    <header class="navbar">
+        <div class="logo"><a href="{% url 'home' %}">BookShow</a></div>
+
+        <div class="nav-center">
+            <div class="search-bar">
+                <form action="{% url 'search_mv' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="title" placeholder="Search movies..." id="movieSearchInput">
+                    <button id="searchBtn">Search</button>
+                </form>
+                
+            </div>
+            <div class="location">
+                <span><i class="fa fa-map-marker"></i> Bangalore </span>
+            </div>
+        </div>
+
+        <div class="nav-actions">
+            {% if user.is_authenticated %}
+                <div class="user-dropdown">
+                    <button id="userDropdownBtn">{{ request.user }}</button>
+                    <div class="dropdown-content" id="dropdownContent">
+                        <a href="{% url 'booking_history' %}">Booking History</a>
+                        <a href="{% url 'update_pwd' %}">Update Password</a>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-btn">Login</a>
+            {% endif %}
+        </div>
+    </header>
+
+    {% include 'partials/message.html' %}
+
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- FOOTER SECTION -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 BookShow. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle user dropdown
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdownBtn = document.getElementById('userDropdownBtn');
+            const dropdownContent = document.getElementById('dropdownContent');
+            
+            if (dropdownBtn) {
+                dropdownBtn.addEventListener('click', () => {
+                    dropdownContent.classList.toggle('show');
+                });
+            }
+
+            window.onclick = function(e) {
+                if (!e.target.matches('#userDropdownBtn')) {
+                    if (dropdownContent) {
+                        dropdownContent.classList.remove('show');
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

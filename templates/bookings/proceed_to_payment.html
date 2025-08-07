@@ -1,0 +1,48 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/bookings/proceed_to_payment.css' %}">
+
+<div class="summary-container">
+    <h2>Booking Summary</h2>
+
+    <div class="summary-card">
+        
+        <div class="show-details">
+            <p><strong>Movie:</strong> {{ showtime.movie.title }}</p>
+            <p><strong>Theater:</strong> {{ showtime.theater.name }}</p>
+            <p><strong>Show Date:</strong> {{ showtime.showtime.date }}</p>
+            <p><strong>Show Time:</strong> {{ showtime.showtime.time|time:"h:i A" }}</p>
+        </div>
+
+        <h3>Selected Seats</h3>
+        <div class="seats-list">
+            {% for seat in tickets %}
+                <span class="seat-badge">{{ seat }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="price-details">
+            <div class="price-row">
+                <span>Subtotal:</span>
+                <span>Rs. {{ total_amount }}</span>
+            </div>
+            <div class="price-row">
+                <span>Convenience Fee (10%):</span>
+                <span>Rs. {{ convenience_fee }}</span>
+            </div>
+            <hr>
+            <div class="price-row total">
+                <span>Total Payable:</span>
+                <span>Rs. {{ sub_total }}</span>
+            </div>
+        </div>
+
+        <form method="POST" action="{% url 'payment' booking.id %}">
+            {% csrf_token %}
+            <button type="submit" class="pay-button">Proceed to Pay Rs. {{ sub_total }}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

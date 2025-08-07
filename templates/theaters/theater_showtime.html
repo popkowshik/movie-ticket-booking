@@ -1,0 +1,53 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/theaters/showtime.css' %}">
+
+<div class="showtime-container">
+    
+    <h2 class="movie-title">{{ movie.title }}</h2>
+
+    <!-- Date Filter Buttons -->
+    <div class="date-filter">
+        {% for date_item in dates %}
+            <a href="{% url 'theater_showtime' slug date_item %}" class="date-btn {% if date_item == selected_date %}active{% endif %}">
+                {{ date_item|date:"D" }}<br>
+                {{ date_item|date:"d M" }}
+            </a>
+        {% endfor %}
+    </div>
+
+    {% if theater_showtimes %}
+        {% for theater_shows in theater_showtimes %}
+            <div class="theater-card">
+                
+                <div class="theater-header">
+                    <div>
+                        <h3 class="theater-name">{{ theater_shows.0.theater.name }}</h3>
+                        <p class="theater-address">{{ theater_shows.0.theater.address }}</p>
+                    </div>
+                    <div class="projection-info">
+                        Dolby 7.1 LASER Projection
+                    </div>
+                </div>
+
+                <div class="showtime-boxes">
+                    {% for show in theater_shows %}
+                        <a href="{% url 'seats' show.id %}">
+                        <button class="showtime-btn">
+                            {{ show.showtime|time:"h:i A" }}
+                        </button>
+                        </a>
+                    {% endfor %}
+                </div>
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="no-showtimes">
+            <h1>No Showtimes Found</h1>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

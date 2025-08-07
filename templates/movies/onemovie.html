@@ -1,0 +1,114 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/onemovie.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<div class="back-button">
+    <a href="{% url 'home' %}"><i class="fa-solid fa-arrow-left"></i> Back</a>
+</div>
+
+<div class="movie-detail-wrapper">
+    <!-- Movie Info -->
+    <div class="movie-info-section">
+        <div class="poster">
+            <img src="{{ movie.movie_image.url }}" alt="{{ movie.title }}">
+        </div>
+        <div class="info">
+            <h1>{{ movie.title }}</h1>
+            {% if reviews|length >= 1 %}
+            <p><strong>{{ rating.avg|floatformat:1 }}/10</strong> ({{ reviews|length }} reviews)</p>
+            {% else %}
+            <p>{{ reviews|length }} reviews</p>
+            {% endif %}
+            <p><strong>Genres:</strong> {{ movie.genre }}</p>
+            <p><strong>Languages:</strong> {{ movie.language }}</p>
+            <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+
+            <div class="button-group">
+                <a href="{{ movie.trailer_url }}" class="action-btn" target="_blank">🎬 Watch Trailer</a>
+                <a href="{% url 'add_review' movie.slug %}" class="action-btn"> <i class="fa-solid fa-star"></i> Rate Now</a>
+                <a href="{% url 'theater_showtime' movie.slug date %}" class="action-btn">🎟️ Book Tickets</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- About -->
+    <div class="about-movie">
+        <h2>About This Movie</h2>
+        <p>{{ movie.synopsis }}</p>
+    </div>
+
+    <!-- Cast -->
+    <div class="cast-section">
+        <h2 class="cast-title">Cast</h2>
+        <div class="cast-grid">
+            {% for actor in cast %}
+                <div class="cast-card">
+                    <img src="{{ actor.image.url }}" alt="{{ actor.name }}">
+                    <p class="name">{{ actor.name }}</p>
+                    <p class="role">{{ actor.role }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Reviews -->
+    {% if reviews %}
+    <div class="review-section">
+        <h2 class="review-title">Movie Reviews</h2>
+
+        <div class="review-grid">
+            <!-- First Review -->
+            <div class="review-card">
+                <div class="review-left">
+                    <p>{{ reviews.0.review_text }}</p>
+                </div>
+                <div class="review-right">
+                    <p><strong>{{ reviews.0.rating }}/10</strong></p>
+                </div>
+            </div>
+
+            <!-- More Reviews -->
+            {% if reviews|length > 1 %}
+            <div id="extra-reviews" class="hidden">
+                {% for review in reviews|slice:"1:" %}
+                <div class="review-card">
+                    <div class="review-left">
+                        <p>{{ review.review_text }}</p>
+                    </div>
+                    <div class="review-right">
+                        <p><strong>{{ review.rating }}/10</strong></p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Toggle Buttons -->
+            <div class="review-actions">
+                <button id="show-more-btn" onclick="toggleMoreReviews()">Show More</button>
+                <button id="show-less-btn" onclick="toggleMoreReviews()" class="hidden">Show Less</button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% else %}
+        <p style="text-align:center; color:#ccc;">No reviews yet.</p>
+    {% endif %}
+</div>
+
+<script>
+function toggleMoreReviews() {
+    const extra = document.getElementById('extra-reviews');
+    const moreBtn = document.getElementById('show-more-btn');
+    const lessBtn = document.getElementById('show-less-btn');
+
+    if (extra.classList.contains('hidden')) {
+        extra.classList.remove('hidden');
+        moreBtn.classList.add('hidden');
+        lessBtn.classList.remove('hidden');
+    } else {
+        extra.classList.add('hidden');
+        moreBtn.classList.remove('hidden');
+        lessBtn.classList.add('hidden');
+    }
+}
+</script>

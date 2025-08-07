@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rate Movie</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .review-box {
+            background-color: #222;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
+            width: 400px;
+            text-align: center;
+            position: relative;
+        }
+
+        .review-box h2 {
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+
+        .slider-label {
+            margin: 20px 0 10px;
+            font-size: 16px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .rating-display {
+            font-size: 18px;
+            color: #ffcc00;
+            margin-top: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            resize: vertical;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .submit-btn {
+            margin-top: 20px;
+            background-color: #ffcc00;
+            color: black;
+            padding: 12px 24px;
+            border: none;
+            font-weight: bold;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: transparent;
+            color: #ffcc00;
+            border: 2px solid #ffcc00;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="review-box">
+        <h2>Rate {{ movie.title }}</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <label class="slider-label" for="rating">Rating (0 to 10):</label>
+            <input type="range" name="rating" id="rating" min="0" max="10" value="5" oninput="updateDisplay(this.value)">
+            <div class="rating-display" id="rating-value">Selected: 5</div>
+
+            <textarea name="review_text" rows="5" placeholder="Write your review here..."></textarea>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function updateDisplay(value) {
+            document.getElementById('rating-value').textContent = `Selected: ${value}`;
+        }
+    </script>
+</body>
+</html>

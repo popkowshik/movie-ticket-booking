@@ -1,0 +1,51 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/dashboard/booking_history.css' %}">
+
+<h2>Your Booking History</h2>
+
+<div class="history-container">
+    {% for data in booking_data %}
+    <div class="history-card">
+        <div class="movie-poster">
+            <img src="{{ data.movie.movie_image.url }}" alt="{{ data.movie.title }}">
+        </div>
+
+        <div class="booking-details">
+            <h3>{{ data.movie.title }}</h3>
+            <p><strong>Theater:</strong> {{ data.theater.name }}</p>
+            <p><strong>Address:</strong> {{ data.theater.address }}</p>
+            <p><strong>Showtime:</strong> {{ data.showtime|date:"d M Y, h:i A" }}</p>
+            <p><strong>Seats:</strong> 
+                {% for seat in data.seats %}
+                    {{ seat.seat.row_label }}{{ seat.seat.seat_number }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p><strong>Total Amount:</strong> ₹{{ data.booking.total_amount }}</p>
+            <p><strong>Status:</strong> {{ data.booking.status|capfirst }}</p>
+            
+            {% if data.payment %}
+                <p><strong>Payment:</strong> {{ data.payment.status }} via {{ data.payment.payment_method }}</p>
+            {% else %}
+                <p><em>Payment Pending</em></p>
+            {% endif %}
+
+            {% if data.booking.status != "cancelled" %}
+            <form action="{% url 'cancel_booking' data.booking.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="cancel-btn">Cancel Ticket</button>
+            </form>
+            {% else %}
+                <p class="cancelled-text"><strong>Status:</strong> Cancelled</p>
+            {% endif %}
+
+        </div>
+    </div>
+    {% empty %}
+        <p>You have no bookings yet.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

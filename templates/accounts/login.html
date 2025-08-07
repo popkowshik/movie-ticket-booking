@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+<div class="login-wrapper">
+    <div class="login-box">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <a href="{% url 'identify' %}" class="forgot-link">Forgot password?</a>
+
+            <a href="{% url 'register' %}" class="forgot-link">Don't have an account?</a>
+
+
+            <input type="submit" value="Login">
+
+            <a href="{% provider_login_url 'google' %}" class="google-btn">
+                <img src="{% static 'img/Google-icon.webp' %}" alt="Google" />
+                Continue with Google
+            </a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
