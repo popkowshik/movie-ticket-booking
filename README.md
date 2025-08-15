@@ -1,38 +1,45 @@
-## Overview
+# 🎬 Movie Ticket Booking System
 
-This is a **Movie Ticket Booking System**, a full-stack Django web application designed to facilitate browsing movies, selecting seats, and booking tickets. Built with Python, Django, and standard web technologies, 
-it supports authentication, scheduling, payment handling, and a REST API for movie record creation.
+## 📌 Overview
+The **Movie Ticket Booking System** is a full-stack Django web application that allows users to browse movies, select seats, and securely book tickets.  
+It includes authentication, scheduling, payment gateway integration, and a REST API for movie record creation.  
+Designed for Admins, Theater Owners, and Customers with role-based access.
 
-## Database & Data
+---
 
-- The application uses **SQLite** (`db.sqlite3`) as its default database—ideal for development and testing.
-- Database models include:
-  - **accounts**: Users and roles (Admin, Theater Owner, Customer).
-  - **movies**: Movie details (title, duration, description, poster, etc.).
-  - **theaters**: Theater and screen information.
-  - **bookings**: Booking records with showtime, seats, user info, and payment status.
-  - **payments**: Transaction details tied to each booking.
-  - **reviews**: User reviews and ratings for movies.
-  - **dashboard**: Aggregated views/stats (if applicable).
-- Sample or seed data (if any) can be loaded via fixtures or Django admin. (Add details if you have fixtures or from external APIs.)
+## 🗄️ Database & Data
+- **Database:** SQLite (`db.sqlite3`) is used for development and testing.
+- **Models include:**
+  - **accounts** – Users and roles (Admin, Theater Owner, Customer).
+  - **movies** – Movie details (title, description, genre, language, poster).
+  - **theaters** – Theater and screen information.
+  - **bookings** – Showtimes, seat allocation, booking details.
+  - **payments** – Stripe payment transactions linked to bookings.
+  - **reviews** – User reviews and ratings for movies.
+- **Data Source:**
+  - Initially populated via Django Admin.
+  - Optionally load fixtures or external APIs for movie data.
 
-## Project Structure
+---
 
+## 📂 Project Structure
+```plaintext
 movie-ticket-booking/
-├── accounts/ # User models, authentication, role management
-├── bookings/ # Booking logic, showtimes, seat allocation
-├── dashboard/ # Admin/theater dashboards and stats
-├── movies/ # Movie management, REST API endpoints
-├── theaters/ # Theater and screen schema
-├── payments/ # Payment processing, gateway integration
-├── reviews/ # Movie reviews and ratings functionality
-├── media/ # Uploaded images (e.g., movie posters)
-├── static/ # CSS, JS, images
-├── templates/ # HTML templates
-├── db.sqlite3 # Development database
-├── manage.py # Django management script
-├── requirements.txt # Python dependencies
-└── README.md # Project overview and 
+├── accounts/           # User models, authentication, role management
+├── bookings/           # Booking logic, showtimes, seat allocation
+├── dashboard/          # Admin/theater dashboards and stats
+├── movies/             # Movie management, REST API endpoints
+├── theaters/           # Theater and screen schema
+├── payments/           # Payment processing, gateway integration
+├── reviews/            # Movie reviews and ratings functionality
+├── media/              # Uploaded images (e.g., movie posters)
+├── static/             # CSS, JS, images
+├── templates/          # HTML templates
+├── db.sqlite3          # Development database
+├── manage.py           # Django management script
+├── requirements.txt    # Python dependencies
+└── README.md           # Project overview and instructions
+
 
 ### 4. **Setup & Run Instructions**
 
@@ -85,16 +92,16 @@ Guide users on how to navigate features of the app:
 - **Admin Interface**  
   - Visit `/admin/` to manage all models (requires admin credentials).
 
+Technologies Used
+
+Backend: Python, Django
+
+Frontend: HTML5, CSS, JavaScript
+
+Database: SQLite
+
+Payments: Stripe API
+
+Other: Django REST Framework
 
 
-
-
-
-
-
-
-
-
-
-
-instructions
