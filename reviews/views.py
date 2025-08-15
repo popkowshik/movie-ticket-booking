@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Review
 from accounts.models import User
-from student.models import Movie
+from movies.models import Movie
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 # Create your views here.

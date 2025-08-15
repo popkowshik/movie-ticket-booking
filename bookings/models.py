@@ -1,6 +1,6 @@
 from django.db import models
 from accounts.models import User
-from book.models import Showtime,Seat
+from theaters.models import Showtime,Seat
 # Create your models here.
 
 class Booking(models.Model):

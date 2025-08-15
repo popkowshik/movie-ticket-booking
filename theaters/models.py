@@ -1,5 +1,5 @@
 from django.db import models
-from student.models import Movie
+from movies.models import Movie
 # Create your models here.
 class Theater(models.Model):
     name = models.CharField(max_length=100)
